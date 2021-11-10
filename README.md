@@ -1,6 +1,6 @@
 # Testing Todo App from React
 
-<h2><a href=#>Ссылка</a> на Pages(текущее состояние)</h2>
+<h2><a href='https://rosstiks.github.io/Todo-App/'>Ссылка</a> на Pages(текущее состояние)</h2>
 
 <h2>Некоторые вопросы:</h2>
 <ul>
