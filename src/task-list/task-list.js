@@ -1,14 +1,11 @@
 import React from "react";
 import Task from "../task";
 
-export default function TaskList({ data }) {
+export default function TaskList({ data, removeTodo }) {
     const todos = data.map(el => {
         const {id, ...otherData} = el;
-        return (
-            <li key={ id }>
-                <Task { ...otherData } />
-            </li>
-        );
+        return <Task key={id} { ...otherData }
+                     removeTodo={() => removeTodo(id)} />
     });
 
     return (

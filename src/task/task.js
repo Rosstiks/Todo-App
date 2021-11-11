@@ -1,16 +1,60 @@
 import React from "react";
 import {formatDistanceToNow} from "date-fns";
 
-export default function Task(props){
-    return (
-        <div className='view'>
-            <input type="checkbox" className='toggle'/>
-            <label>
-                <span className='description'>{props.text}</span>
-                <span className='created'>{formatDistanceToNow(props.createDate)}</span>
-            </label>
-            <button className='icon icon-edit'></button>
-            <button className='icon icon-destroy'></button>
-        </div>
-    );
+export default class Task extends React.Component {
+
+    state = {
+        done: false,
+        edit: false,
+    }
+
+    startEditing = () => {
+        this.setState({
+            edit: true,
+        })
+    }
+
+    doneTodo = () => {
+        this.setState(({ done }) => {
+            return {
+                done: !done,
+            }
+        })
+    }
+
+    render() {
+        const { text, createDate, removeTodo } = this.props;
+        const { done, edit } = this.state;
+        let className = '';
+        if (done) className += 'completed';
+        if (edit) className += 'editing';
+
+        return (
+            <li className={ className }>
+                <div className='view'>
+                    <input type="checkbox"
+                           className='toggle'
+                           onChange={this.doneTodo}/>
+                    <label>
+                        <span className='description'>
+                            { text }
+                        </span>
+                        <span className='created'>
+                            { formatDistanceToNow(createDate) }
+                        </span>
+                    </label>
+                    <button
+                        className='icon icon-edit'
+                        onClick={ this.startEditing }>
+                    </button>
+                    <button
+                        className='icon icon-destroy'
+                        onClick={removeTodo}>
+                    </button>
+                </div>
+                <input className='edit'
+                       defaultValue={text} />
+            </li>
+        )
+    };
 };
