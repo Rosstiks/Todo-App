@@ -4,7 +4,6 @@ import {formatDistanceToNow} from "date-fns";
 export default class Task extends React.Component {
 
     state = {
-        done: false,
         edit: false,
     }
 
@@ -14,19 +13,16 @@ export default class Task extends React.Component {
         })
     }
 
-    doneTodo = () => {
-        this.setState(({ done }) => {
-            return {
-                done: !done,
-            }
-        })
-    }
-
     render() {
-        const { text, createDate, removeTodo } = this.props;
-        const { done, edit } = this.state;
+        const { text, createDate, removeTodo,
+                done, doneTodo } = this.props;
+        const { edit } = this.state;
         let className = '';
-        if (done) className += 'completed';
+        let checked = false;
+        if (done) {
+            className += 'completed';
+            checked = true;
+        }
         if (edit) className += 'editing';
 
         return (
@@ -34,7 +30,9 @@ export default class Task extends React.Component {
                 <div className='view'>
                     <input type="checkbox"
                            className='toggle'
-                           onChange={this.doneTodo}/>
+                           onChange={ doneTodo }
+                           checked={ checked }
+                    />
                     <label>
                         <span className='description'>
                             { text }
@@ -45,15 +43,15 @@ export default class Task extends React.Component {
                     </label>
                     <button
                         className='icon icon-edit'
-                        onClick={ this.startEditing }>
+                        onClick={ this.startEditing } >
                     </button>
                     <button
                         className='icon icon-destroy'
-                        onClick={removeTodo}>
+                        onClick={ removeTodo } >
                     </button>
                 </div>
                 <input className='edit'
-                       defaultValue={text} />
+                       defaultValue={ text } />
             </li>
         )
     };
