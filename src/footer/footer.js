@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from 'prop-types';
+
 import TaskFilter from "../tasks-filter/task-filter";
 
 export default function Footer({ clearDone, countActive, changeFilter, filter }) {
@@ -19,3 +21,16 @@ export default function Footer({ clearDone, countActive, changeFilter, filter })
         </footer>
     );
 };
+
+Footer.defaultProps = {
+    clearDone: () => {},
+    changeFilter: () => {},
+    filter: 'All',
+}
+
+Footer.propTypes = {
+    countActive: PropTypes.number.isRequired,
+    clearDone: PropTypes.func,
+    changeFilter: PropTypes.func,
+    filter: PropTypes.oneOf(['All', 'Completed', 'Active'])
+}

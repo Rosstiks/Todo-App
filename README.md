@@ -2,6 +2,12 @@
 
 <h2><a href='https://rosstiks.github.io/Todo-App/'>Ссылка</a> на Pages(текущее состояние)</h2>
 
+<h2>v1.3.19</h2>
+<h3>Changes:</h3>
+<ul>
+    <li><b>Fix:</b>дата в todo с секундами</li>
+    <li>Ко всем компонентам добавлены defaultProps и propTypes</li>
+</ul>
 <h2>v1.3.14</h2>
 <h3>Changes:</h3>
 <ul>

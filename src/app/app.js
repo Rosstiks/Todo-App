@@ -8,7 +8,7 @@ export default class App extends React.Component {
 
     state = {
         todos: [
-            {id: 0, text: 'Create new Task', done: false, createDate: new Date(2021, 10, 1, 2, 3)},
+            {id: 0, text: 'Create new Task', done: false, createDate: Date.now()},
         ],
         filter: 'All',
     };

@@ -1,6 +1,14 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 export default class NewTaskForm extends React.Component {
+    static defaultProps = {
+        addTodo: () => {},
+    }
+
+    static propTypes = {
+        addTodo: PropTypes.func,
+    }
 
     state = {
         newTodoLabel: '',
