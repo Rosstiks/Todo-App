@@ -1,92 +1,110 @@
-import React from "react";
-import Header from "../header";
-import TaskList from "../task-list";
-import Footer from "../footer";
+import React from 'react';
+import Header from '../header';
+import TaskList from '../task-list';
+import Footer from '../footer';
 
 export default class App extends React.Component {
-    currentId = 1;
+  currentId = 1;
 
-    state = {
-        todos: [
-            {id: 0, text: 'Create new Task', done: false, createDate: Date.now()},
-        ],
-        filter: 'All',
+  state = {
+    todos: [{ id: 0, text: 'Create new Task', done: false, createDate: Date.now() }],
+    filter: 'All',
+  };
+
+  removeTodo = (id) => {
+    this.setState(({ todos }) => {
+      const idx = todos.findIndex((el) => el.id === id);
+      const newTodos = [...todos];
+      newTodos.splice(idx, 1);
+      return {
+        todos: newTodos,
+      };
+    });
+  };
+
+  editTodo = (id, text) => {
+    this.setState(({ todos }) => {
+      const idx = todos.findIndex((el) => el.id === id);
+      const newTodo = { ...todos[idx], text };
+      const newTodos = [...todos];
+      newTodos.splice(idx, 1, newTodo);
+      return {
+        todos: newTodos,
+      };
+    });
+  };
+
+  addTodo = (text) => {
+    const newTodo = {
+      id: this.currentId,
+      text,
+      done: false,
+      createDate: Date.now(),
     };
+    this.currentId += 1;
+    const { todos } = this.state;
+    this.setState({
+      todos: [...todos, newTodo],
+    });
+  };
 
-    removeTodo = (id) => {
-        this.setState(({ todos }) => {
-            const idx = todos.findIndex(el => el.id === id);
-            const newTodos = [...todos];
-            newTodos.splice(idx, 1)
-            return {
-                todos: newTodos,
-            }
-        })
-    }
-    addTodo = (text) => {
-        const newTodo = {
-            id: this.currentId++,
-            text,
-            done: false,
-            createDate: Date.now(),
-        };
-        this.setState({
-            todos: [...this.state.todos, newTodo],
-        });
-    }
-    doneTodo = (id) => {
-        this.setState(({ todos }) => {
-            const idx = todos.findIndex(el => el.id === id);
-            const newTodo = { ...todos[idx], done: !todos[idx].done};
-            const newTodos = [...todos];
-            newTodos.splice(idx, 1, newTodo);
-            return {
-                todos: newTodos,
-            }
-        });
-    }
-    clearDone = () => {
-        const newTodos = this.state.todos.filter(el => !el.done);
-        this.setState({
-            todos: newTodos,
-        })
-    }
-    changeFilter = (filter) => {
-        this.setState({filter})
+  doneTodo = (id) => {
+    this.setState(({ todos }) => {
+      const idx = todos.findIndex((el) => el.id === id);
+      const newTodo = { ...todos[idx], done: !todos[idx].done };
+      const newTodos = [...todos];
+      newTodos.splice(idx, 1, newTodo);
+      return {
+        todos: newTodos,
+      };
+    });
+  };
+
+  clearDone = () => {
+    const { todos } = this.state;
+    const newTodos = todos.filter((el) => !el.done);
+    this.setState({
+      todos: newTodos,
+    });
+  };
+
+  changeFilter = (filter) => {
+    this.setState({ filter });
+  };
+
+  render() {
+    const { todos, filter } = this.state;
+    const countActive = todos.filter((el) => !el.done).length;
+    let renderData;
+    switch (filter) {
+      case 'Active':
+        renderData = todos.filter((el) => !el.done);
+        break;
+      case 'Completed':
+        renderData = todos.filter((el) => el.done);
+        break;
+      default:
+        renderData = todos;
     }
 
-    render() {
-        const { todos, filter } = this.state;
-        const countActive = todos.filter(el => !el.done).length;
-        let renderData;
-        switch (filter) {
-            case "Active":
-                renderData = todos.filter(el => !el.done);
-                break;
-            case "Completed":
-                renderData = todos.filter(el => el.done);;
-                break;
-            default:
-                renderData = todos;
-        }
-
-        return (
-            <section className='todoapp'>
-                <Header addTodo = { text => this.addTodo(text) }/>
-                <section className = 'main' >
-                    <TaskList
-                        data = { renderData }
-                        removeTodo = { (id) => this.removeTodo(id) }
-                        doneTodo = { this.doneTodo }
-                    />
-                    <Footer
-                        clearDone = { this.clearDone }
-                        countActive = { countActive }
-                        changeFilter = { this.changeFilter }
-                        filter = { filter }
-                    />
-                </section>
-            </section>
-        )
-    };
-};
+    return (
+      <section className="todoapp">
+        <Header addTodo={(text) => this.addTodo(text)} />
+        <section className="main">
+          <TaskList
+            data={renderData}
+            removeTodo={(id) => this.removeTodo(id)}
+            doneTodo={this.doneTodo}
+            editTodo={this.editTodo}
+          />
+          <Footer
+            clearDone={this.clearDone}
+            countActive={countActive}
+            changeFilter={this.changeFilter}
+            filter={filter}
+          />
+        </section>
+      </section>
+    );
+  }
+}

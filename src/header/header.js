@@ -1,21 +1,21 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
 
-import NewTaskForm from "../new-task-form";
+import NewTaskForm from '../new-task-form';
 
 export default function Header({ addTodo }) {
-    return (
-        <header className='header'>
-            <h1>Todos</h1>
-            <NewTaskForm addTodo={text => addTodo(text)}/>
-        </header>
-    );
-};
+  return (
+    <header className="header">
+      <h1>Todos</h1>
+      <NewTaskForm addTodo={(text) => addTodo(text)} />
+    </header>
+  );
+}
 
 Header.defaultProps = {
-    addTodo: () => {},
-}
+  addTodo: () => {},
+};
 
-Header.propType = {
-    addTodo: PropTypes.func,
-}
+Header.propTypes = {
+  addTodo: PropTypes.func,
+};
