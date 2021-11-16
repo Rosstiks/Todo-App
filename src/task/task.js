@@ -1,7 +1,22 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import {formatDistanceToNow} from "date-fns";
 
 export default class Task extends React.Component {
+    static defaultProps = {
+        createDate: Date.now(),
+        doneTodo: () => {},
+        removeTodo: () => {},
+    }
+
+    static propTypes = {
+        text: PropTypes.string.isRequired,
+        done: PropTypes.bool.isRequired,
+        doneTodo: PropTypes.func,
+        removeTodo: PropTypes.func,
+        createDate: PropTypes.number,
+    }
 
     state = {
         edit: false,
@@ -38,7 +53,7 @@ export default class Task extends React.Component {
                             { text }
                         </span>
                         <span className='created'>
-                            { formatDistanceToNow(createDate) }
+                            { formatDistanceToNow(createDate, { includeSeconds: true }) }
                         </span>
                     </label>
                     <button

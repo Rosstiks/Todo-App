@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 export default function TaskFilter({ changeFilter, filter }){
 
@@ -28,3 +29,13 @@ export default function TaskFilter({ changeFilter, filter }){
         </ul>
     );
 };
+
+TaskFilter.defaultProps = {
+    changeFilter: () => {},
+    filter: 'All',
+}
+
+TaskFilter.propTypes = {
+    changeFilter: PropTypes.func,
+    filter: PropTypes.oneOf(['All', 'Completed', 'Active']),
+}

@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import Task from "../task";
 
 
@@ -18,4 +20,15 @@ export default function TaskList({ data, removeTodo, doneTodo }) {
             { todos }
         </ul>
     )
+}
+
+TaskList.defaultProps = {
+    removeTodo: () => {},
+    doneTodo: () => {},
+}
+
+TaskList.propTypes = {
+    data: PropTypes.arrayOf(PropTypes.object).isRequired,
+    removeTodo: PropTypes.func,
+    doneTodo: PropTypes.func,
 }
