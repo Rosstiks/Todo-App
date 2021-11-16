@@ -1,7 +1,16 @@
 # Testing Todo App from React
 
 <h2><a href='https://rosstiks.github.io/Todo-App/'>Ссылка</a> на Pages(текущее состояние)</h2>
+<h2><a href='https://todo-app-sepia-seven.vercel.app/'>Ссылка</a> на Vercel(текущее состояние)</h2>
 
+<h2>v1.4.15</h2>
+<h3>Changes:</h3>
+<ul>
+    <li>Добавлены плагины для форматирования кода по конфигу airbnb</li>
+    <li>Добавлены скрипты lint, lint:fix, format</li>
+    <li>Настроены husky и lint-staged</li>
+    <li>Добавлен хостинг на Vercel</li>
+</ul>
 <h2>v1.3.19</h2>
 <h3>Changes:</h3>
 <ul>
