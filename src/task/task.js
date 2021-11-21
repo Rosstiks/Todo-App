@@ -1,5 +1,6 @@
 import React from "react";
 import {formatDistanceToNow} from "date-fns";
+import classNames from 'classnames'
 
 export default class Task extends React.Component {
 
@@ -25,12 +26,13 @@ export default class Task extends React.Component {
     render() {
         const { text, createDate, removeTodo } = this.props;
         const { done, edit } = this.state;
-        let className = '';
-        if (done) className += 'completed';
-        if (edit) className += 'editing';
+        const classList = classNames({
+            'completed': done,
+            'editing': edit,
+        })
 
         return (
-            <li className={ className }>
+            <li className={ classList }>
                 <div className='view'>
                     <input type="checkbox"
                            className='toggle'
