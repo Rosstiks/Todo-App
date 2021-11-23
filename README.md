@@ -3,6 +3,12 @@
 <h2><a href='https://rosstiks.github.io/Todo-App/'>Ссылка</a> на Pages(текущее состояние)</h2>
 <h2><a href='https://todo-app-sepia-seven.vercel.app/'>Ссылка</a> на Vercel(текущее состояние)</h2>
 
+<h2>v1.4.15.1</h2>
+<h3>Changes:</h3>
+<ul>
+    <li>Fix: Исправлен баг с неккоректным редактированием завершённых задач</li>
+    <li>Fix: Проброс классов реализован через библиотеку classNames</li>
+</ul>
 <h2>v1.4.15</h2>
 <h3>Changes:</h3>
 <ul>
