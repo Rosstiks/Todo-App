@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import TaskFilter from '../tasks-filter/task-filter';
+import ItemsFilter from '../items-filter';
 
 export default function Footer({ clearDone, countActive, changeFilter, filter }) {
   return (
     <footer className="footer">
       <span className="todo-count">{countActive} items left</span>
-      <TaskFilter changeFilter={(filter) => changeFilter(filter)} filter={filter} />
+      <ItemsFilter changeFilter={(filter) => changeFilter(filter)} filter={filter} />
       <button className="clear-completed" onClick={clearDone} type="submit">
         Clear completed
       </button>

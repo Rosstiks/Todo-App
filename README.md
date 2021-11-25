@@ -1,8 +1,15 @@
 # Testing Todo App from React
 
 <h2><a href='https://rosstiks.github.io/Todo-App/'>Ссылка</a> на Pages(текущее состояние)</h2>
-<h2><a href='https://todo-app-sepia-seven.vercel.app/'>Ссылка</a> на Vercel(текущее состояние)</h2>
+<h2><a href='https://todo-rosstiks.vercel.app/'>Ссылка</a> на Vercel(текущее состояние)</h2>
 
+<h2>v2.2.9</h2>
+<h3>Changes:</h3>
+<ul>
+    <li>Add: Добавлен таймер задач</li>
+    <li>Fix: Данные сохранются в storage - корректная работа с несколькими вкладками браузера с синхронными изменениями</li>
+    <li>Fix: Рефакторинг компонентов</li>
+</ul>
 <h2>v1.4.15.1</h2>
 <h3>Changes:</h3>
 <ul>

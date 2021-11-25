@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Task from '../task';
+import Item from '../item';
 
-export default function TaskList({ data, removeTodo, doneTodo, editTodo }) {
+export default function ItemsList({ data, removeTodo, changeStatusTodo, editTodo }) {
   const todos = data.map((el) => {
-    const { id, ...otherData } = el;
+    const { id } = el;
     return (
-      <Task
+      <Item
         key={id}
-        {...otherData}
+        {...el}
         removeTodo={() => removeTodo(id)}
-        doneTodo={() => doneTodo(id)}
+        changeStatusTodo={(change) => changeStatusTodo(id, change)}
         editTodo={(text) => editTodo(id, text)}
       />
     );
@@ -20,15 +20,15 @@ export default function TaskList({ data, removeTodo, doneTodo, editTodo }) {
   return <ul className="todo-list">{todos}</ul>;
 }
 
-TaskList.defaultProps = {
+ItemsList.defaultProps = {
   editTodo: () => {},
   removeTodo: () => {},
-  doneTodo: () => {},
+  changeStatusTodo: () => {},
 };
 
-TaskList.propTypes = {
+ItemsList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   removeTodo: PropTypes.func,
-  doneTodo: PropTypes.func,
+  changeStatusTodo: PropTypes.func,
   editTodo: PropTypes.func,
 };

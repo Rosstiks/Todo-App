@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function TaskFilter({ changeFilter, filter }) {
+export default function ItemsFilter({ changeFilter, filter }) {
   return (
     <ul className="filters">
       <li>
@@ -31,12 +31,12 @@ export default function TaskFilter({ changeFilter, filter }) {
   );
 }
 
-TaskFilter.defaultProps = {
+ItemsFilter.defaultProps = {
   changeFilter: () => {},
   filter: 'All',
 };
 
-TaskFilter.propTypes = {
+ItemsFilter.propTypes = {
   changeFilter: PropTypes.func,
   filter: PropTypes.oneOf(['All', 'Completed', 'Active']),
 };

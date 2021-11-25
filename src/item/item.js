@@ -1,24 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import ItemContent from '../item-content';
 
-import { formatDistanceToNow } from 'date-fns';
-
-export default class Task extends React.Component {
+export default class Item extends React.Component {
   static defaultProps = {
     createDate: Date.now(),
-    doneTodo: () => {},
-    removeTodo: () => {},
-    editTodo: () => {},
   };
 
   static propTypes = {
     text: PropTypes.string.isRequired,
     done: PropTypes.bool.isRequired,
-    doneTodo: PropTypes.func,
-    removeTodo: PropTypes.func,
-    editTodo: PropTypes.func,
+    changeStatusTodo: PropTypes.func.isRequired,
+    removeTodo: PropTypes.func.isRequired,
+    editTodo: PropTypes.func.isRequired,
     createDate: PropTypes.number,
+    id: PropTypes.number.isRequired,
+    currentSession: PropTypes.number.isRequired,
   };
 
   state = {
@@ -26,14 +24,12 @@ export default class Task extends React.Component {
   };
 
   startEditing = () => {
-    this.setState({
-      edit: true,
-    });
+    this.setState({ edit: true });
   };
 
   onEditing = (evt) => {
+    const { editTodo } = this.props;
     if (evt.keyCode === 13) {
-      const { editTodo } = this.props;
       editTodo(evt.target.value);
       this.setState({ edit: false });
     } else if (evt.keyCode === 27) {
@@ -42,7 +38,7 @@ export default class Task extends React.Component {
   };
 
   render() {
-    const { text, createDate, removeTodo, done, doneTodo } = this.props;
+    const { text, createDate, removeTodo, done, changeStatusTodo, id, currentSession } = this.props;
     const { edit } = this.state;
     const classList = classNames({
       completed: done,
@@ -52,11 +48,14 @@ export default class Task extends React.Component {
     return (
       <li className={classList}>
         <div className="view">
-          <input type="checkbox" className="toggle" onChange={doneTodo} checked={done} />
-          <label>
-            <span className="description">{text}</span>
-            <span className="created">{formatDistanceToNow(createDate, { includeSeconds: true })}</span>
-          </label>
+          <input type="checkbox" className="toggle" onChange={() => changeStatusTodo('done')} checked={done} />
+          <ItemContent
+            content={text}
+            createDate={createDate}
+            id={id}
+            currentSession={currentSession}
+            changeStatusTodo={(change) => changeStatusTodo(change)}
+          />
           <button className="icon icon-edit" onClick={this.startEditing} type="submit" aria-label="Edit todo" />
           <button className="icon icon-destroy" onClick={removeTodo} type="submit" aria-label="Remove todo" />
         </div>
