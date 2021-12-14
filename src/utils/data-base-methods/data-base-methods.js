@@ -1,21 +1,17 @@
 export default class DataBaseMethods {
-  createItemData(id, text) {
+  createItemData(id, text, timeout) {
     return {
       id,
       text,
       done: false,
+      timeout,
       createDate: Date.now(),
-      currentSessionStart: null,
-      currentSession: 0,
-      totalSession: 0,
-      isActive: false,
-      timerID: null,
     };
   }
 
-  addItem(todos, id, text) {
+  addItem(todos, id, text, timeout) {
     return {
-      todos: [...todos, this.createItemData(id, text)],
+      todos: [...todos, this.createItemData(id, text, timeout || 60)],
     };
   }
 
@@ -38,18 +34,9 @@ export default class DataBaseMethods {
     };
   }
 
-  changeStatusItem(todos, id, change) {
+  changeStatusItem(todos, id) {
     const idx = todos.findIndex((el) => el.id === id);
-    let newTodo;
-    if (change === 'done') {
-      newTodo = { ...todos[idx], done: !todos[idx].done };
-    } else if (change === 'startTimer') {
-      newTodo = todos[idx].isActive
-        ? { ...todos[idx] }
-        : { ...todos[idx], isActive: true, currentSessionStart: Date.now() };
-    } else if (change === 'stopTimer') {
-      newTodo = { ...todos[idx], isActive: false, totalSession: todos[idx].currentSession };
-    }
+    const newTodo = { ...todos[idx], done: !todos[idx].done };
     const newTodos = [...todos];
     newTodos.splice(idx, 1, newTodo);
     return {

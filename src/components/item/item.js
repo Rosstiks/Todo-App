@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import ItemContent from '../item-content';
+import { formatDistanceToNow } from 'date-fns';
+import Timer from '../timer';
 
 export default class Item extends React.Component {
   static defaultProps = {
@@ -16,7 +17,8 @@ export default class Item extends React.Component {
     editTodo: PropTypes.func.isRequired,
     createDate: PropTypes.number,
     id: PropTypes.number.isRequired,
-    currentSession: PropTypes.number.isRequired,
+    timeout: PropTypes.number.isRequired,
+    currentTab: PropTypes.string.isRequired,
   };
 
   state = {
@@ -38,24 +40,24 @@ export default class Item extends React.Component {
   };
 
   render() {
-    const { text, createDate, removeTodo, done, changeStatusTodo, id, currentSession } = this.props;
+    const { text, createDate, removeTodo, done, changeStatusTodo, id, timeout, currentTab } = this.props;
     const { edit } = this.state;
     const classList = classNames({
       completed: done,
       editing: edit,
     });
+    let display = 'block';
+    if ((done && currentTab === 'Active') || (!done && currentTab === 'Completed')) display = 'none';
 
     return (
-      <li className={classList}>
+      <li className={classList} style={{ display }}>
         <div className="view">
           <input type="checkbox" className="toggle" onChange={() => changeStatusTodo('done')} checked={done} />
-          <ItemContent
-            content={text}
-            createDate={createDate}
-            id={id}
-            currentSession={currentSession}
-            changeStatusTodo={(change) => changeStatusTodo(change)}
-          />
+          <label>
+            <span className="title">{text}</span>
+            <Timer id={id} timeout={timeout} />
+            <span className="description">{formatDistanceToNow(createDate, { includeSeconds: true })}</span>
+          </label>
           <button className="icon icon-edit" onClick={this.startEditing} type="submit" aria-label="Edit todo" />
           <button className="icon icon-destroy" onClick={removeTodo} type="submit" aria-label="Remove todo" />
         </div>

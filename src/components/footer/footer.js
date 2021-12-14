@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import ItemsFilter from '../items-filter';
 
 export default function Footer({ clearDone, countActive, changeFilter, filter }) {

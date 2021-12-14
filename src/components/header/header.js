@@ -7,15 +7,11 @@ export default function Header({ addTodo }) {
   return (
     <header className="header">
       <h1>Todos</h1>
-      <NewItemForm addTodo={(text) => addTodo(text)} />
+      <NewItemForm addTodo={(text, timeout) => addTodo(text, timeout)} />
     </header>
   );
 }
 
-Header.defaultProps = {
-  addTodo: () => {},
-};
-
 Header.propTypes = {
-  addTodo: PropTypes.func,
+  addTodo: PropTypes.func.isRequired,
 };

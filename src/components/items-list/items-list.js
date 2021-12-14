@@ -3,15 +3,16 @@ import PropTypes from 'prop-types';
 
 import Item from '../item';
 
-export default function ItemsList({ data, removeTodo, changeStatusTodo, editTodo }) {
+export default function ItemsList({ data, removeTodo, changeStatusTodo, editTodo, currentTab }) {
   const todos = data.map((el) => {
     const { id } = el;
     return (
       <Item
+        currentTab={currentTab}
         key={id}
         {...el}
         removeTodo={() => removeTodo(id)}
-        changeStatusTodo={(change) => changeStatusTodo(id, change)}
+        changeStatusTodo={() => changeStatusTodo(id)}
         editTodo={(text) => editTodo(id, text)}
       />
     );
@@ -20,15 +21,10 @@ export default function ItemsList({ data, removeTodo, changeStatusTodo, editTodo
   return <ul className="todo-list">{todos}</ul>;
 }
 
-ItemsList.defaultProps = {
-  editTodo: () => {},
-  removeTodo: () => {},
-  changeStatusTodo: () => {},
-};
-
 ItemsList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
-  removeTodo: PropTypes.func,
-  changeStatusTodo: PropTypes.func,
-  editTodo: PropTypes.func,
+  removeTodo: PropTypes.func.isRequired,
+  changeStatusTodo: PropTypes.func.isRequired,
+  editTodo: PropTypes.func.isRequired,
+  currentTab: PropTypes.string.isRequired,
 };
