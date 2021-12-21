@@ -3,6 +3,11 @@
 <h2><a href='https://rosstiks.github.io/Todo-App/'>Ссылка</a> на Pages(текущее состояние)</h2>
 <h2><a href='https://todo-rosstiks.vercel.app/'>Ссылка</a> на Vercel(текущее состояние)</h2>
 
+<h2>v2.2.9.1H</h2>
+<h3>Changes:</h3>
+<ul>
+    <li>Fix: Основано на v2.2.9.1 - классовые компоненты переписаны на функциональные с Hooks</li>
+</ul>
 <h2>v2.2.9.1</h2>
 <h3>Changes:</h3>
 <ul>

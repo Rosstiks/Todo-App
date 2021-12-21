@@ -1,66 +1,52 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-export default class Timer extends React.Component {
-  static propTypes = {
-    timeout: PropTypes.number.isRequired,
-  };
-
-  state = {
-    active: false,
-    timeLeft: null,
-  };
-
-  componentDidMount() {
-    const { timeout } = this.props;
-    this.setState({ timeLeft: timeout });
-  }
-
-  tick = () => {
-    const { timeLeft } = this.state;
+export default function Timer({ timeout }) {
+  const [active, setActive] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(null);
+  const [timerId, setTimerId] = useState(null);
+  useEffect(() => setTimeLeft(timeout), [timeout]);
+  useEffect(() => {
     if (!timeLeft) {
-      this.stopTimer();
-      return;
+      clearInterval(timerId);
+      setActive(false);
     }
-    this.setState(({ timeLeft }) => ({ timeLeft: timeLeft - 1 }));
-  };
+  }, [timeLeft, timerId]);
+  useEffect(() => () => clearTimeout(timerId), [timerId]);
 
-  startTimer = () => {
-    const { active } = this.state;
-    if (!active) {
-      this.timerID = setInterval(this.tick, 1000);
-      this.setState({
-        active: true,
-      });
-    }
-  };
-
-  stopTimer = () => {
-    const { active } = this.state;
+  const stopTimer = () => {
     if (active) {
-      clearInterval(this.timerID);
-      this.setState({ active: false });
+      clearInterval(timerId);
+      setActive(false);
     }
   };
 
-  formatingTime(value) {
+  const startTimer = () => {
+    if (!active) {
+      setTimerId(setInterval(() => setTimeLeft((time) => time - 1), 1000));
+      setActive(true);
+    }
+  };
+
+  function formatingTime(value) {
     return `0${value}`.slice(-2);
   }
 
-  render() {
-    const { timeLeft } = this.state;
-    const minutes = Math.trunc(timeLeft / 60);
-    const seconds = timeLeft % 60;
-    const fontColor = timeLeft ? 'gray' : 'red';
+  const minutes = Math.trunc(timeLeft / 60);
+  const seconds = timeLeft % 60;
+  const fontColor = timeLeft ? 'gray' : 'red';
 
-    return (
-      <span className="description">
-        <button onClick={this.startTimer} className="icon icon-play" type="button" aria-label="Start timer" />
-        <button onClick={this.stopTimer} className="icon icon-pause" type="button" aria-label="Stop timer" />
-        <span style={{ marginLeft: 10, color: fontColor }}>
-          {this.formatingTime(minutes)}:{this.formatingTime(seconds)}
-        </span>
+  return (
+    <span className="description">
+      <button onClick={startTimer} className="icon icon-play" type="button" aria-label="Start timer" />
+      <button onClick={stopTimer} className="icon icon-pause" type="button" aria-label="Stop timer" />
+      <span style={{ marginLeft: 10, color: fontColor }}>
+        {formatingTime(minutes)}:{formatingTime(seconds)}
       </span>
-    );
-  }
+    </span>
+  );
 }
+
+Timer.propTypes = {
+  timeout: PropTypes.number.isRequired,
+};

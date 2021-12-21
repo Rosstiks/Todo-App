@@ -10,9 +10,7 @@ export default class DataBaseMethods {
   }
 
   addItem(todos, id, text, timeout) {
-    return {
-      todos: [...todos, this.createItemData(id, text, timeout || 60)],
-    };
+    return [...todos, this.createItemData(id, text, timeout || 60)];
   }
 
   editItem(todos, id, text) {
@@ -20,18 +18,14 @@ export default class DataBaseMethods {
     const newTodo = { ...todos[idx], text };
     const newTodos = [...todos];
     newTodos.splice(idx, 1, newTodo);
-    return {
-      todos: newTodos,
-    };
+    return newTodos;
   }
 
   removeItem(todos, id) {
     const idx = todos.findIndex((el) => el.id === id);
     const newTodos = [...todos];
     newTodos.splice(idx, 1);
-    return {
-      todos: newTodos,
-    };
+    return newTodos;
   }
 
   changeStatusItem(todos, id) {
@@ -39,15 +33,11 @@ export default class DataBaseMethods {
     const newTodo = { ...todos[idx], done: !todos[idx].done };
     const newTodos = [...todos];
     newTodos.splice(idx, 1, newTodo);
-    return {
-      todos: newTodos,
-    };
+    return newTodos;
   }
 
   clearDone(todos) {
     const newTodos = todos.filter((el) => !el.done);
-    return {
-      todos: newTodos,
-    };
+    return newTodos;
   }
 }
