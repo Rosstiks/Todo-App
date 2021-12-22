@@ -3,6 +3,11 @@
 <h2><a href='https://rosstiks.github.io/Todo-App/'>Ссылка</a> на Pages(текущее состояние)</h2>
 <h2><a href='https://todo-rosstiks.vercel.app/'>Ссылка</a> на Vercel(текущее состояние)</h2>
 
+<h2>v2.2.9.1H.1</h2>
+<h3>Changes:</h3>
+<ul>
+    <li>Fix: Удалена утилитарная фунция Database. Логика работы с данными перенесена в App</li>
+</ul>
 <h2>v2.2.9.1H</h2>
 <h3>Changes:</h3>
 <ul>
